@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
 
     strategy:
-      fail-fast: false
+      #fail-fast: false
       matrix:
         php: ['5.6', '7.0', '7.1', '7.2', '7.3', '7.4', '8.0']
         wp: ['latest', '3.7']
@@ -133,8 +133,8 @@ jobs:
           mysql-version: ${{ steps.set_mysql.outputs.MYSQL }}
           auto-start: true
 
-      - name: Start mysql service
-        run: sudo /etc/init.d/mysql start
+#      - name: Start mysql service
+#        run: sudo /etc/init.d/mysql start
 
       - name: Set up WordPress
         run: phpunit/install.sh wordpress_test root root 127.0.0.1 ${{ matrix.wp }}
