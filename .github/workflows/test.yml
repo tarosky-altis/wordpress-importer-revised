@@ -95,7 +95,7 @@ jobs:
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: false
           MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: wcorg_test
+          MYSQL_DATABASE: importer_test
         ports:
           - 3306/tcp
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
@@ -114,7 +114,7 @@ jobs:
         run: sudo /etc/init.d/mysql start
 
       - name: Set up WordPress
-        run: phpunit/install.sh wordpress_test root '' localhost ${{ matrix.wp }}
+        run: phpunit/install.sh wordpress_test root root 127.0.0.1 ${{ matrix.wp }}
 
       - name: 'Composer: set up PHPUnit for PHP < 8.0'
         if: ${{ matrix.php < 8.0 }}
