@@ -136,7 +136,7 @@ jobs:
       - name: Start mysql service
         run: |
           sudo /etc/init.d/mysql start
-          sudo /etc/init.d/mysql --version
+          mysql --version
 
       - name: Set up WordPress
         run: phpunit/install.sh wordpress_test root root 127.0.0.1 ${{ matrix.wp }}
