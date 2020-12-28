@@ -15,6 +15,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    container: ubuntu
 
     strategy:
       fail-fast: false
@@ -134,11 +135,13 @@ jobs:
 #          mysql-version: ${{ steps.set_mysql.outputs.MYSQL }}
 #          auto-start: true
 
-      - name: Start mysql service
-        run: sudo /etc/init.d/mysql start
+      #- name: Start mysql service
+      #  run: sudo /etc/init.d/mysql start
 
-      - name: Verify mysql verion
+      - name: Verify database connection and version
         run: |
+          apt-get update
+          apt-get install -y mysql-client
           mysqld --version
           mysqladmin -V
 
