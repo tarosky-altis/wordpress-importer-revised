@@ -133,10 +133,13 @@ jobs:
 #          mysql-version: ${{ steps.set_mysql.outputs.MYSQL }}
 #          auto-start: true
 
-#      - name: Start mysql service
-#        run: |
-#          sudo /etc/init.d/mysql start
-#          mysql --version
+      - name: Start mysql service
+        run: sudo /etc/init.d/mysql start
+
+      - name: Verify mysql verion
+        run: |
+          mysqld --version
+          mysqladmin -V
 
       - name: Set up WordPress
         run: phpunit/install.sh wordpress_test root root 127.0.0.1 ${{ matrix.wp }}
