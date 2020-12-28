@@ -112,20 +112,20 @@ jobs:
           # The PHP 5.6 and 7.0 images don't include mysql[i] by default.
           extensions: mysqli
 
-      - name: Determine supported MySQL version
-        id: set_mysql
-        run: |
+#      - name: Determine supported MySQL version
+#        id: set_mysql
+#        run: |
           # WP 4.5 is the first WP version which properly supports MySQL 5.7.
           # See: https://core.trac.wordpress.org/ticket/34692
           # WP 5.4 is the first WP version which largely supports MySQL 8.0.
           # See: https://core.trac.wordpress.org/ticket/49344
-          if [[ "${{ matrix.wp }}" < "4.5" ]]; then
-            echo '::set-output name=MYSQL::5.6'
-          elif [[ "${{ matrix.wp }}" < "5.4" ]]; then
-            echo '::set-output name=MYSQL::5.7'
-          else
-            echo '::set-output name=MYSQL::8.0'
-          fi
+#          if [[ "${{ matrix.wp }}" < "4.5" ]]; then
+#            echo '::set-output name=MYSQL::5.6'
+#          elif [[ "${{ matrix.wp }}" < "5.4" ]]; then
+#            echo '::set-output name=MYSQL::5.7'
+#          else
+#            echo '::set-output name=MYSQL::8.0'
+#          fi
 
 #      - name: Install MySQL
 #        uses: shogo82148/actions-setup-mysql@v1
@@ -133,10 +133,10 @@ jobs:
 #          mysql-version: ${{ steps.set_mysql.outputs.MYSQL }}
 #          auto-start: true
 
-      - name: Start mysql service
-        run: |
-          sudo /etc/init.d/mysql start
-          mysql --version
+#      - name: Start mysql service
+#        run: |
+#          sudo /etc/init.d/mysql start
+#          mysql --version
 
       - name: Set up WordPress
         run: phpunit/install.sh wordpress_test root root 127.0.0.1 ${{ matrix.wp }}
