@@ -15,7 +15,6 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    container: ubuntu
 
     strategy:
       fail-fast: false
@@ -94,7 +93,7 @@ jobs:
     services:
       mysql:
         #image: mysql:${{ ( matrix.wp < 4.5 && '5.6' ) || ( matrix.wp < 5.4 && '5.7' ) || '8.0' }}
-        image: mysql:5.6
+        image: mysql:5.6.50
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: false
           MYSQL_DATABASE: wordpress_test
@@ -135,13 +134,11 @@ jobs:
 #          mysql-version: ${{ steps.set_mysql.outputs.MYSQL }}
 #          auto-start: true
 
-      #- name: Start mysql service
-      #  run: sudo /etc/init.d/mysql start
+      - name: Start mysql service
+        run: sudo /etc/init.d/mysql start
 
-      - name: Verify database connection and version
+      - name: Verify mysql version
         run: |
-          apt-get update
-          apt-get install -y mysql-client
           mysqld --version
           mysqladmin -V
 
