@@ -90,15 +90,15 @@ jobs:
 
     continue-on-error: ${{ matrix.experimental }}
 
-#    services:
-#      mysql:
-#        image: mysql: ${{ matrix.wp < 4.5 5.7 }}
-#        env:
-#          MYSQL_ALLOW_EMPTY_PASSWORD: false
-#          MYSQL_DATABASE: wordpress_test
-#        ports:
-#          - 3306/tcp
-#        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+    services:
+      mysql:
+        image: mysql: ${{ ( matrix.wp < "4.5" && '5.6' ) || ( matrix.wp < "5.4" && '5.7' ) || '8.0' }}
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: false
+          MYSQL_DATABASE: wordpress_test
+        ports:
+          - 3306/tcp
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
     steps:
       - name: Checkout code
@@ -127,14 +127,16 @@ jobs:
             echo '::set-output name=MYSQL::8.0'
           fi
 
-      - name: Install MySQL
-        uses: shogo82148/actions-setup-mysql@v1
-        with:
-          mysql-version: ${{ steps.set_mysql.outputs.MYSQL }}
-          auto-start: true
+#      - name: Install MySQL
+#        uses: shogo82148/actions-setup-mysql@v1
+#        with:
+#          mysql-version: ${{ steps.set_mysql.outputs.MYSQL }}
+#          auto-start: true
 
-#      - name: Start mysql service
-#        run: sudo /etc/init.d/mysql start
+      - name: Start mysql service
+        run: |
+          sudo /etc/init.d/mysql start
+          sudo /etc/init.d/mysql --version
 
       - name: Set up WordPress
         run: phpunit/install.sh wordpress_test root root 127.0.0.1 ${{ matrix.wp }}
