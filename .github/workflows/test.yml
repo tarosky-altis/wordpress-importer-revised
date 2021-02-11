@@ -32,7 +32,7 @@ jobs:
         # PHP 8.0 is sort of supported since WP 5.6.
         # This doesn't mean that the plugin doesn't work on earlier version as it may not hit incompatible
         # parts of WP, but just something to be aware of in case of failures.
-        php: ['5.6', '7.0', '7.1', '7.2', '7.3', '7.4', '8.0']
+        php: ['5.6', '8.0']
         wp: ['latest', '3.7']
         experimental: [false]
 
@@ -57,47 +57,6 @@ jobs:
           - php: '5.3'
             wp: '3.7'
             experimental: false
-
-          # Complement the builds run via the matrix with some additional builds against specific WP versions.
-          - php: '7.4'
-            wp: '5.4'
-            experimental: false
-          - php: '7.3'
-            wp: '5.3'
-            experimental: false
-          - php: '7.2'
-            wp: '5.2'
-            experimental: false
-          - php: '7.1'
-            wp: '4.6'
-            experimental: false
-          - php: '7.0'
-            wp: '4.3'
-            experimental: false
-          - php: '5.6'
-            wp: '4.0'
-            experimental: false
-          - php: '5.6'
-            wp: '5.5'
-            experimental: false
-          - php: '5.5'
-            wp: '4.5'
-            experimental: false
-          - php: '5.4'
-            wp: '5.0'
-            experimental: false
-          - php: '5.3'
-            wp: '4.9'
-            experimental: false
-
-          # Experimental builds. These are allowed to fail.
-          - php: '7.4'
-            wp: 'trunk'
-            experimental: true
-
-          - php: '8.1'
-            wp: 'trunk'
-            experimental: true
 
     name: "PHP ${{ matrix.php }} - WP ${{ matrix.wp }}"
 
