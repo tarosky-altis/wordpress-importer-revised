@@ -139,7 +139,7 @@ jobs:
           mysqladmin -V
 
       - name: Set up WordPress
-        run: phpunit/install.sh wordpress_test root root localhost:${{ job.services.mysql.ports[3306] }} ${{ matrix.wp }}
+        run: phpunit/install.sh wordpress_test root '' localhost:${{ job.services.mysql.ports[3306] }} ${{ matrix.wp }}
 
       # Originally, only PHPUnit 4.x and 5.x were supported.
       # As of WP 5.1, PHPUnit 6.x and 7.x are also supported.
