@@ -41,4 +41,6 @@ jobs:
 
       # Check the code-style consistency of the PHP files.
       - name: Check PHP code style
-        run: vendor/bin/phpcs -q --report=checkstyle | cs2pr
+        run: |
+          vendor/bin/phpcs --report-checkstyle=./phpcs-report.xml
+          cs2pr ./phpcs-report.xml
